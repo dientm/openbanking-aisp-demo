@@ -1,4 +1,4 @@
-package com.five9.openbanking.aisp.AISP.Demo;
+package com.five9.openbanking.aisp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

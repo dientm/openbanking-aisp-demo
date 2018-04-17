@@ -1,4 +1,4 @@
-package com.five9.openbanking.aisp.AISP.Demo;
+package com.five9.openbanking.aisp;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
