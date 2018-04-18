@@ -9,15 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.websocket.server.PathParam;
 import javax.xml.ws.Response;
 import java.text.ParseException;
 
-@Controller
+//@Controller
 public class AISPController {
 
     @Autowired
@@ -35,7 +33,7 @@ public class AISPController {
         return new ResponseEntity(accountService.setupAccountRequest(code), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/consent", method = RequestMethod.GET)
+    @RequestMapping(value = "/account", method = RequestMethod.GET)
     public RedirectView consent() {
         String consentLink = "https://api.eu.apiconnect.ibmcloud.com/cmarcoliukibmcom-open-banking-aggregator/rw-sandbox-production/psuoauth2security/v1.0.5/oauth2/authorize?" +
                 "response_type=code&" +

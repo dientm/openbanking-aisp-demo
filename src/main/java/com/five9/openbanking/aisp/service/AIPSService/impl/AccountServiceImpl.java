@@ -7,6 +7,7 @@ import com.five9.openbanking.aisp.dto.DataDto;
 import com.five9.openbanking.aisp.dto.RiskDto;
 import com.five9.openbanking.aisp.dto.auth.AuthResponseDto;
 import com.five9.openbanking.aisp.service.AIPSService.AccountService;
+import com.five9.openbanking.aisp.service.PaymentAPIService.PaymentService;
 import com.five9.openbanking.aisp.service.authenticate.PSUOauth2SecurityService;
 import com.five9.openbanking.aisp.service.authenticate.TPPOAuth2SecurityService;
 import com.google.gson.*;
@@ -35,6 +36,9 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     PSUOauth2SecurityService psuOauth2SecurityService;
 
+    @Autowired
+    PaymentService paymentService;
+
     @Override
     public String setupAccountRequest(String code) throws ParseException {
         // get access-token
@@ -48,7 +52,9 @@ public class AccountServiceImpl implements AccountService {
 
         // 4. Get the access token required to execute the payment
         String psuAccessToken = psuOauth2SecurityService.getOauth2Token(code);
-        // 6. Submit the payment for execution
+
+        // 6. Get the account information
+        // TODO: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
 
         return psuAccessToken;
@@ -65,7 +71,7 @@ public class AccountServiceImpl implements AccountService {
                 "request=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5hbHBoYW5iYW5rLmNvbSIsImF1ZCI6InM2QmhkUmtxdDMiLCJyZXNwb25zZV90eXBlIjoiY29kZSIsImNsaWVudF9pZCI6InM2QmhkUmtxdDMiLCJyZWRpcmVjdF91cmkiOiJodHRwczovL2V4YW1wbGUuY29tL3JlZGlyZWN0Iiwic2NvcGUiOiJvcGVuaWQgcGF5bWVudHMiLCJzdGF0ZSI6ImFmMGlmanNsZGtqIiwibm9uY2UiOiI0OTg3NTk0ODc1NDg1LWoiLCJtYXhfYWdlIjo4NjQwMCwiY2xhaW1zIjp7InVzZXJpbmZvIjp7Im9wZW5iYW5raW5nX2ludGVudF9pZCI6eyJ2YWx1ZSI6IjE1MDQwMjE0NjU4MTUiLCJlc3NlbnRpYWwiOnRydWV9fSwiaWRfdG9rZW4iOnsib3BlbmJhbmtpbmdfaW50ZW50X2lkIjp7InZhbHVlIjoiMTUwNDAyMTQ2NTgxNSIsImVzc2VudGlhbCI6dHJ1ZX0sImFjciI6eyJlc3NlbnRpYWwiOnRydWUsInZhbHVlcyI6WyJ1cm46b3BlbmJhbmtpbmc6cHNkMjpzY2EiLCJ1cm46b3BlbmJhbmtpbmc6cHNkMjpjYSJdfX19LCJqdGkiOiI2NThmYzg1MS03NzdjLTQ1MjEtOWY1Mi0zMGE0OWM3ZjQyMzgiLCJpYXQiOjE1MDI0Njc5ODIsImV4cCI6MTUwMjQ3MTY1OH0.7R4HcpmV5unXSmYEOfWhhU71iqLhnbA9Q88X72KOt0s";
         return consentLink;
     }
-    private AccountInformationDto createAccountRequest(java.lang.String accessToken) throws ParseException {
+    private AccountInformationDto createAccountRequest(String accessToken) throws ParseException {
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -113,7 +119,8 @@ public class AccountServiceImpl implements AccountService {
         HttpEntity<java.lang.String> request = new HttpEntity<java.lang.String>(payload, headers);
         System.out.println(payload);
 
-        java.lang.String endpoint = "https://api.eu.apiconnect.ibmcloud.com/cmarcoliukibmcom-open-banking-aggregator/rw-sandbox-production/open-banking/v1.1/account-requests";
+        String endpoint = "https://api.eu.apiconnect.ibmcloud.com/cmarcoliukibmcom-open-banking-aggregator/rw-sandbox-production/open-banking/v1.1/account-requests";
+
         ResponseEntity<AccountInformationDto> response = restTemplate.postForEntity(endpoint, request, AccountInformationDto.class);
         System.out.print("break point");
         return response.getBody();

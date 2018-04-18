@@ -7,5 +7,5 @@ import java.text.ParseException;
 public interface AccountService {
     public String setupAccountRequest(String code) throws ParseException;
 
-    public getAvailableAccounts(String accessToken);
+
 }

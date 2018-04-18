@@ -15,6 +15,9 @@ public class DataDto {
     @Expose
     private String transactionToDateTime;
 
+
+
+
     private String status;
 
     public DataDto(String[] permissions, String expirationDateTime, String transactionFromDateTime, String transactionToDateTime) {
@@ -70,5 +73,6 @@ public class DataDto {
     public void setStatus(String status) {
         this.status = status;
     }
+
 
 }
